@@ -15,15 +15,17 @@ cursor = conn.cursor()
 def index():
     return render_template('login.html')
 
+
 @app.route('/login/', methods=['POST'])
 def login():
     username = request.form.get('username')
     password = request.form.get('password')
     cursor.execute("SELECT * FROM service.users WHERE login=%s AND password=%s", (str(username), str(password)))
     records = list(cursor.fetchall())
+    if username and password:
+        return render_template('account.html', full_name=records[0][1], username=username, password=password)
+    
 
-    if username==True and password==True:
-        return render_template('account.html', full_name=records[0][1], user=username, pass=password)
 
 if __name__ == '__main__':
     app.run()
