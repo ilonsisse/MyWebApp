@@ -24,6 +24,13 @@ def login():
     records = list(cursor.fetchall())
     if username and password:
         return render_template('account.html', full_name=records[0][1], username=username, password=password)
+    if username == '':
+        return render_template('error_1.html')
+    if password == '':
+        return render_template('error_2.html')
+    if username not in database:
+        return render_template('error_3.html')
+
     
 
 
