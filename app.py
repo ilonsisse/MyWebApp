@@ -41,8 +41,15 @@ def registration():
         cursor.execute('INSERT INTO service.users (full_name, login, password) VALUES (%s, %s, %s);',
                        (str(name), str(login), str(password)))
         conn.commit()
+        if name and login and password:
+            return redirect('/login/')
+        elif name=='':
+            return render_template('error_4.html')
+        elif login == '':
+            return render_template('error_1.html')
+        elif password == '':
+            return render_template('error_2.html')
 
-        return redirect('/login/')
 
     return render_template('registration.html')
 
